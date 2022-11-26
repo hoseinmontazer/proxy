@@ -583,6 +583,9 @@ if [ $MSG == 'y' ];then
                                 PUBIP=`dig @resolver4.opendns.com myip.opendns.com +short`
                         fi
                 fi
+				python3 ./json2vmess.py /usr/local/etc/v2ray/hosein.json
+				echo
+				
 	else
 		echo "are you sure choose correct v2ray mode !!!"
 	fi

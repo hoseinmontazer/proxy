@@ -37,6 +37,10 @@ def parse_inbounds(jsonobj):
         if option.debug:
             msg = lambda x: "{ps} / {net} / {add}:{port} / net:{net}/aid:{aid}/host:{host}/path:{path}/tls:{tls}/type:{type}".format(**x)
             print(msg(v))
+        print ("+++++++++++++++++++++++++++++++++++")
+        print ("         vmess utl cong           +")
+        print ("+++++++++++++++++++++++++++++++++++")
+        print ("")
         print(link)
         print()
 
