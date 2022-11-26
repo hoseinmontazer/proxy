@@ -1,11 +1,13 @@
 # v2ray-shadowsock-over-gost
 this script create shadowsocks and v2ray on 2 mode
-### 1) direct
+###  direct
 
 in direct mode client connect to server directly without any forwarder
 
 
-### 2) bridge
+###  bridge
+in bridge mode client connect to forwarder in local area and bridge server forward traffic as a ssh tunne to freedon server
+
 
 ```mermaid
 graph TD;
@@ -13,5 +15,4 @@ graph TD;
     bridge-server-->freedom;
 ```
 
-in bridge mode client connect to forwarder in local area and bridge server forward traffic as a ssh tunne to freedon server
 
