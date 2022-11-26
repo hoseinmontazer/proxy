@@ -276,7 +276,10 @@ fi;
 
 v2ray() {
 install-package
+echo -e ${YELLOW}
+echo  -e "=================== start creat v2ray account ==================="
 while [[ ! "$MSG" =~ ^[yYnN]$ ]]; do read -rep $'Create v2ray account (vmess)"  : y or n:\n' -i y  MSG; done
+echo -e ${CLEAR}
 if [ $MSG == 'y' ];then
 	PASS=`tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo ''`
 	INPORT=`for i in $(seq 1); do echo $(((RANDOM % $((65000 - 2000))) + 2000));done`
