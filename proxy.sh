@@ -285,11 +285,17 @@ if [ $MSG == 'y' ];then
 	INPORT=`for i in $(seq 1); do echo $(((RANDOM % $((65000 - 2000))) + 2000));done`
 	UUID=`/usr/local/bin/v2ray uuid`
 	VDIR=/usr/local/etc/v2ray/
-        read -rep $'enter your account name :\n'   FILENAME
-        while [[   -f  /etc/supervisor/conf.d/$FILENAME.conf ]];do
-                echo -e "${RED}this account is exist please enter another name${CLEAR}"
-                read -rep $'enter your account name: \n'   FILENAME
-        done
+    GDIR=/var/log/gost
+    if [ -d $GDIR ];then
+            echo "supervisor log is enable"
+    else
+            mkdir /var/log/gost
+    fi;
+    read -rep $'enter your account name :\n'   FILENAME
+    while [[   -f  /etc/supervisor/conf.d/$FILENAME.conf ]];do
+            echo -e "${RED}this account is exist please enter another name${CLEAR}"
+            read -rep $'enter your account name: \n'   FILENAME
+    done
 
 	echo  -e "${YELLOW}=================== choose one of the option ===================${CLEAR}"
 	printf "${YELLOW}1) direct (single node) \n2) bridge (two server)${CLEAR} \n"
