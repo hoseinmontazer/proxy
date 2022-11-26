@@ -9,13 +9,13 @@ in direct mode client connect to server directly without any forwarder
 
 |        client         |   =============>   |      bridge server    |   =============>     |       freedom         |
 
-| First Header  |
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 in bridge mode client connect to forwarder in local area and bridge server forward traffic as a ssh tunne to freedon server
-
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
 
