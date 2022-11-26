@@ -14,14 +14,14 @@ CLEAR='\033[0m'
 
 usage() {
 	echo -e ${CYAN}
-        echo -e "usage: $(basename $0) [option]"
+    echo -e "usage: $(basename $0) [option]"
 	echo
-	echo "server-gost		Create Server side tunnel as gost"
-        echo "local-gost		Create local Side  tunnel as gost"
-        echo "v2ray			Create v2ray account"
+	echo "server-gost			Create Server side tunnel as gost"
+    echo "local-gost			Create local Side  tunnel as gost"
+    echo "v2ray					Create v2ray account"
 	echo "install-package		isnatll requerment package"
-	echo "revoke-conf		revoke account"
-        echo "help			show this help"
+	echo "revoke-conf			revoke account"
+    echo "help					show this help"
 	echo -e ${CLEAR}
 }
 
@@ -29,33 +29,41 @@ usage() {
 install-package() {
 
 	if ! [ -x "$(command -v python3)" ];then
-    		apt install python3-pip
-    		echo "python3 installation done."
+    		apt install python3-pip -y
+    		echo "${GREEAN}python3 installation done.${CLEAR}"
 	else
-   		echo "Skipping 'python3' installation: that already exists"
+   		echo "${GREEAN}Skipping 'python3' installation: that already exists.${CLEAR}"
+   		sleep 2
+	fi;
+
+	if ! [ -x "$(command -v pip3)" ];then
+    		apt install python3-pip	-y
+    		echo "${GREEAN}pip3 installation done.${CLEAR}"
+	else
+   		echo "${GREEAN}Skipping 'pip3' installation: that already exists.${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -x "$(command -v qr)" ];then
     		pip3 install qrcode
-    		echo "installation qrcode done."
+    		echo "${GREEAN}installation qrcode done.${CLEAR}"
 	else
-   		echo "Skipping 'qrcode' installation: that already exists"
+   		echo "${GREEAN}Skipping 'qrcode' installation: that already exists${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -x "$(command -v supervisorctl)" ];then
     		apt install supervisor -y
-    		echo "supervisor installation done."
+    		echo "${GREEAN}supervisor installation done.${CLEAR}"
 	else
-   		echo "Skipping 'supervisor' installation: that already exists"
+   		echo "${GREEAN}Skipping 'supervisor' installation: that already exists${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -x "$(command -v gost)" ];then
     		# Package does not exist: Do the package installation
     		# downloaf and install gost
-    		echo "gost installation started ."
+    		echo "${GREEAN}gost installation started .${CLEAR}"
     		curl -fsSL https://github.com/ginuerzh/gost/releases/download/v2.11.4/gost-linux-amd64-2.11.4.gz -o gost.gz  &&  gunzip gost.gz  &
     		PID=$!
     		i=1
@@ -68,21 +76,21 @@ install-package() {
     		chmod +x gost
     		mv gost /usr/bin/
     		#rm gost.gz
-    		echo " gost installation done ."
+    		echo "${GREEAN}gost installation done .${CLEAR}"
 	else
-   		echo "Skipping 'gost' installation: that already exists"
+   		echo "${GREEAN}Skipping 'gost' installation: that already exists${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -f /usr/local/bin/v2ray ];then
 		bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
-                echo "v2ray installation done."
+                echo "${GREEAN}v2ray installation done.${CLEAR}"
         else
-                echo "Skipping 'v2ray' installation: that already exists"
+                echo "${GREEAN}Skipping 'v2ray' installation: that already exists${CLEAR}"
                 sleep 2
         fi;
 
-echo "installed all requerment pakage."
+echo "${GREEAN}installed all requerment pakage.${CLEAR}"
 }
 
 server-gost() {
