@@ -11,8 +11,8 @@ in direct mode client connect to server directly without any forwarder
 
 ```mermaid
 graph TD;
-    client-->bridge server;
-    bridge server-->freedom;
+    client-->bridge-server;
+    bridge-server-->freedom;
 ```
 
 in bridge mode client connect to forwarder in local area and bridge server forward traffic as a ssh tunne to freedon server
