@@ -267,6 +267,7 @@ fi;
 }
 
 v2ray() {
+install-package
 while [[ ! "$MSG" =~ ^[yYnN]$ ]]; do read -rep $'Create v2ray account (vmess)"  : y or n:\n' -i y  MSG; done
 if [ $MSG == 'y' ];then
 	PASS=`tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo ''`
