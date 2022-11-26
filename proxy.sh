@@ -537,7 +537,8 @@ if [ $MSG == 'y' ];then
                                                         "settings": {
                                                                 "clients": [
                                                                         {
-                                                                                "id": "$UUID"
+                                                                                "id": "$UUID",
+																				"alterId": 0
                                                                         }
                                                                 ]
                                                         },
@@ -554,6 +555,8 @@ if [ $MSG == 'y' ];then
                                                 }
                                         ]
                                 }
+
+								
 			EOF
                 else
                         cat $VDIR$FILENAME.json
