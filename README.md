@@ -1,11 +1,11 @@
 # v2ray-shadowsock-over-gost
 this script create shadowsocks and v2ray on 2 mode
-1) direct
+### 1) direct
 
 in direct mode client connect to server directly without any forwarder
 
 
-2) bridge
+### 2) bridge
 
 ```mermaid
 graph TD;
