@@ -9,16 +9,20 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 CLEAR='\033[0m'
 
-usage() { 
-        echo "usage: $(basename $0) [option]"
-	echo "option=server-gost: Create Server side tunnel as gost"
-        echo "option=local-gost: Create local Side  tunnel as gost"
-        echo "option=v2ray: Create v2ray account"
-	echo "option=install-package: isnatll requerment package"
-	echo "option=revoke-conf: revoke supervisor conf"
-        echo "option=help: show this help"
+usage() {
+	echo -e ${CYAN}
+        echo -e "usage: $(basename $0) [option]"
+	echo
+	echo "server-gost		Create Server side tunnel as gost"
+        echo "local-gost		Create local Side  tunnel as gost"
+        echo "v2ray			Create v2ray account"
+	echo "install-package		isnatll requerment package"
+	echo "revoke-conf		revoke account"
+        echo "help			show this help"
+	echo -e ${CLEAR}
 }
 
 
