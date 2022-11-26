@@ -6,10 +6,9 @@ in direct mode client connect to server directly without any forwarder
 
 
 2) bridge
- _______________________                      _______________________                        _______________________ 
-|                       |                    |                       |                      |                       | 
+
 |        client         |   =============>   |      bridge server    |   =============>     |       freedom         |
-|_______________________|                    |_______________________|                      |_______________________| 
+
 
 
 in bridge mode client connect to forwarder in local area and bridge server forward traffic as a ssh tunne to freedon server
