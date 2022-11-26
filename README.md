@@ -7,7 +7,7 @@ in direct mode client connect to server directly without any forwarder
 
 2) bridge
 
-    |        client         |   =============>   |      bridge server    |   =============>     |       freedom         |
+ |        client         |   =============>   |      bridge server    |   =============>     |       freedom         |
 
 
 ```mermaid
