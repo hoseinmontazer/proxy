@@ -23,3 +23,5 @@ cd proxy/
 chmod +x proxy.sh
 ./proxy.sh
 ```
+
+son2vmess.py script use from this repo https://github.com/hoseinmontazer/proxy
