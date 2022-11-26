@@ -584,7 +584,9 @@ if [ $MSG == 'y' ];then
                         fi
                 fi
 	            VMESS=`python3 ./json2vmess.py /usr/local/etc/v2ray/hosein.json`
+				echo -e  ${GREEN}
                 echo $VMESS | awk -F'vmess' '{print "vmess"$2}'
+				echo -e ${CLEAR}
                 echo
                 qr `echo $VMESS | awk -F'vmess' '{print "vmess"$2}'`
 
