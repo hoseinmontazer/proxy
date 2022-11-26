@@ -30,40 +30,40 @@ install-package() {
 
 	if ! [ -x "$(command -v python3)" ];then
     	apt install python3-pip -y
-    	echo -e "${GREEAN}python3 installation done.${CLEAR}"
+    	echo -e "${GREEN}python3 installation done.${CLEAR}"
 	else
-   		echo -e "${GREEAN}Skipping 'python3' installation: that already exists.${CLEAR}"
+   		echo -e "${GREEN}Skipping 'python3' installation: that already exists.${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -x "$(command -v pip3)" ];then
     	apt install python3-pip	-y
-    	echo -e "${GREEAN}pip3 installation done.${CLEAR}"
+    	echo -e "${GREEN}pip3 installation done.${CLEAR}"
 	else
-   		echo -e "${GREEAN}Skipping 'pip3' installation: that already exists.${CLEAR}"
+   		echo -e "${GREEN}Skipping 'pip3' installation: that already exists.${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -x "$(command -v qr)" ];then
     	pip3 install qrcode
-    	echo -e "${GREEAN}installation qrcode done.${CLEAR}"
+    	echo -e "${GREEN}installation qrcode done.${CLEAR}"
 	else
-   		echo -e "${GREEAN}Skipping 'qrcode' installation: that already exists${CLEAR}"
+   		echo -e "${GREEN}Skipping 'qrcode' installation: that already exists${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -x "$(command -v supervisorctl)" ];then
     	apt install supervisor -y
-    	echo -e "${GREEAN}supervisor installation done.${CLEAR}"
+    	echo -e "${GREEN}supervisor installation done.${CLEAR}"
 	else
-   		echo -e "${GREEAN}Skipping 'supervisor' installation: that already exists${CLEAR}"
+   		echo -e "${GREEN}Skipping 'supervisor' installation: that already exists${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -x "$(command -v gost)" ];then
     		# Package does not exist: Do the package installation
     		# downloaf and install gost
-    		echo -e "${GREEAN}gost installation started .${CLEAR}"
+    		echo -e "${GREEN}gost installation started .${CLEAR}"
     		curl -fsSL https://github.com/ginuerzh/gost/releases/download/v2.11.4/gost-linux-amd64-2.11.4.gz -o gost.gz  &&  gunzip gost.gz  &
     		PID=$!
     		i=1
@@ -76,21 +76,21 @@ install-package() {
     		chmod +x gost
     		mv gost /usr/bin/
     		#rm gost.gz
-    		echo -e "${GREEAN}gost installation done .${CLEAR}"
+    		echo -e "${GREEN}gost installation done .${CLEAR}"
 	else
-   		echo -e "${GREEAN}Skipping 'gost' installation: that already exists${CLEAR}"
+   		echo -e "${GREEN}Skipping 'gost' installation: that already exists${CLEAR}"
    		sleep 2
 	fi;
 
 	if ! [ -f /usr/local/bin/v2ray ];then
 		bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
-                echo -e "${GREEAN}v2ray installation done.${CLEAR}"
+                echo -e "${GREEN}v2ray installation done.${CLEAR}"
         else
-                echo -e "${GREEAN}Skipping 'v2ray' installation: that already exists${CLEAR}"
+                echo -e "${GREEN}Skipping 'v2ray' installation: that already exists${CLEAR}"
                 sleep 2
         fi;
 
-echo -e "${GREEAN}installed all requerment pakage.${CLEAR}"
+echo -e "${GREEN}installed all requerment pakage.${CLEAR}"
 }
 
 server-gost() {
