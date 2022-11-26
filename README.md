@@ -16,3 +16,10 @@ graph TD;
 ```
 
 
+###  RUN SCRIPT
+```bash
+git clone https://github.com/hoseinmontazer/proxy.git
+cd proxy/
+chmod +x proxy.sh
+./proxy.sh
+```
