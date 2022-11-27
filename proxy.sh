@@ -95,9 +95,9 @@ echo -e "${GREEN}installed all requerment pakage.${CLEAR}"
 
 server-gost() {
 unset MSG
-${YELLOW}
+echo -e ${YELLOW}
 while [[ ! "$MSG" =~ ^[yYnN]$ ]]; do read -p  'create gost proxy in server side. you shoud run this command on server side node: [Y/N] :'  MSG ;done 
-${CLEAR}
+echo -e ${CLEAR}
 echo $MSG
 if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 	PASS=`tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo ''`
