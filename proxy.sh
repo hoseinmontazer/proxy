@@ -159,7 +159,7 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 				echo -e "${YELLOW}===========start gost===========${CLEAR}"
 				supervisorctl reread && supervisorctl update && supervisorctl start all
 				echo -e "${YELLOW}===========your config===========${CLEAR}"
-				SERVERIP = `PUBIP=dig @resolver4.opendns.com myip.opendns.com +short`
+				SERVERIP=`dig @resolver4.opendns.com myip.opendns.com +short`
 				SERVERPORT = cat /var/log/gost/$FILENAME.log | grep -o -E '[0-9]+'
 				echo -e ${GREEN}
 				echo "server ip addres: 		${SERVERIP}"
