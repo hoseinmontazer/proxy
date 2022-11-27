@@ -166,7 +166,16 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 				echo "server port:    			${SERVERPORT}"
 				echo -e "${GREEN}setup finish${CLEAR}"
 			elif [ "$TRANSPORTS" == shadowsocks ];then
-				echo "hi shadow"
+					cat <<-EOF > /etc/supervisor/conf.d/$FILENAME.conf
+					[program:$FILENAME]
+					command=gost -L=ss+ohttp://chacha20-ietf-poly1305:$PASS@:$PORT?~bypass=*.ir,*.ir/*,google.com,google.com/*,*.google.com,*.google.com/* 
+					autostart=true
+					autorestart=true
+					stderr_logfile=/var/log/gost/$FILENAME.err.log
+					stdout_logfile=/var/log/gost/$FILENAME.log
+					EOF
+
+					cat /etc/supervisor/conf.d/$FILENAME.conf
 			else
 				echo "can not find valid transporter"
 			fi
