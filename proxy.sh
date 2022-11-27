@@ -176,6 +176,10 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 					EOF
 
 					cat /etc/supervisor/conf.d/$FILENAME.conf
+					echo
+					echo -n "ss://"`echo -n chacha20-ietf-poly1305:$PASS@$PUBIP:$PORT | base64` | qr
+					echo
+					echo -e "${GREEN}setup finish${CLEAR}"
 			else
 				echo "can not find valid transporter"
 			fi
