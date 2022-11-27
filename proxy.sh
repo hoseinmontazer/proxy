@@ -175,9 +175,11 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 					stdout_logfile=/var/log/gost/$FILENAME.log
 					EOF
 
-					cat /etc/supervisor/conf.d/$FILENAME.conf
+					#cat /etc/supervisor/conf.d/$FILENAME.conf
 					echo
-					echo -n "ss://"`echo -n chacha20-ietf-poly1305:$PASS@$PUBIP:$PORT | iconv  -t utf-8 | base64` | qr
+					QRC=`echo -n 'chacha20-ietf-poly1305:${PASS}' | base64`
+					echo "ss://${QRC}@$PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp"
+					echo "ss://${QRC}@$PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp" | qr
 					echo
 					echo -e "${GREEN}setup finish${CLEAR}"
 			else
