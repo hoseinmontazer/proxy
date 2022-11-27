@@ -141,12 +141,11 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 
 				if [ ! -f  /root/auth-gost_keys  ];then
 							touch /root/auth-gost_keys
-					echo "ssh authorized public keys file created"
+					echo "${GREEN}ssh authorized public keys file created${CLEAR}"
 				else
-					echo "ssh authorized public keys file is enable"
+					echo "${GREEN}ssh authorized public keys file is enable${CLEAR}"
 				fi;
 			
-				echo $PUBKEY
 				echo $PUBKEY >>  /root/auth-gost_keys
 				cat <<-EOF >  /etc/supervisor/conf.d/$FILENAME.conf
 				[program:$FILENAME]
