@@ -95,10 +95,12 @@ echo -e "${GREEN}installed all requerment pakage.${CLEAR}"
 
 server-gost() {
 unset MSG
+echo -e ${YELLOW}
 while [[ ! "$MSG" =~ ^[yYnN]$ ]]; do read -p  'create gost proxy in server side. you shoud run this command on server side node: [Y/N] :'  MSG ;done 
+echo -e ${CLEAR}
 echo $MSG
 if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
-	#PASS=`tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo ''`
+	PASS=`tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo ''`
 	PORT=`for i in $(seq 1); do echo $(((RANDOM % $((65000 - 2000))) + 2000));done`
 	DIR=/var/log/gost
 	if [ -d $DIR ];then
@@ -106,47 +108,89 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 	else
 		mkdir /var/log/gost
 	fi;
-	echo "create supervisor conf for server side"
-	sleep 1
 	read -rep $'enter your account name :\n'   FILENAME
 	while [[   -f  /etc/supervisor/conf.d/$FILENAME.conf ]];do
 		echo -e "${RED}this account is exist please enter another name${CLEAR}"
 		read -rep $'enter your account name: \n'   FILENAME
 	done
 	if [ $FILENAME  ]; then
-			read -rep $'enter your gost Transporters ,  recommend is ssh in server side: \n'   TRANSPORTS
-			while [[ ! "$TRANSPORTS" =~  "ssh" ]]; do 
-				echo -e "${RED}only ssh avalable please choose this!!!${CLEAR}"
-				read -rep $'enter your gost Transporters ,  recommend is ssh in server side: \n'   TRANSPORTS;
-		       	done
-			read -rep $'please enter pulic key: \n'   PUBKEY
-			while [ -z $PUBKEY ];do
-				echo -e "${RED}public key con not be empty${CLEAR}"
+			echo  -e "${YELLOW}=================== choose one of the option ===================${CLEAR}"
+			printf "${YELLOW}1) ssh (recommend is ssh in bridge mode) \n2) shadowsocks (direct)${CLEAR} \n"
+			read -rep $'enter your gost Transporters : \n'   TRANSPORTS
+			while [ ! "$TRANSPORTS" == ssh ] && [ ! "$TRANSPORTS" == shadowsocks ] && [ ! "$TRANSPORTS" == 1 ] && [ ! "$TRANSPORTS" == 2 ]; do 
+				echo -e "${RED}only ssh and shadowsocks available please choose those!!!${CLEAR}"
+				read -rep $'enter your gost Transporters : \n'   TRANSPORTS;
+		    done
+
+            if [ $TRANSPORTS == 1 ];then
+                    TRANSPORTS=ssh
+            elif [ $TRANSPORTS == 2 ];then
+                    TRANSPORTS=shadowsocks
+            else
+                    echo -e "$RED can not find valid protocl $CLEAR"
+                    v2ray
+            fi
+
+			if [ "$TRANSPORTS" == ssh ];then
 				read -rep $'please enter pulic key: \n'   PUBKEY
-			done	
-			sleep 1
-			if [ ! -f  /root/auth-gost_keys  ];then
-           	     		touch /root/auth-gost_keys
-				echo "ssh authorized public keys file created"
-        		else
-				echo "ssh authorized public keys file is enable"
-			fi;
-			echo $PUBKEY
-			echo $PUBKEY >>  /root/auth-gost_keys
-			cat <<-EOF >  /etc/supervisor/conf.d/$FILENAME.conf
-			[program:$FILENAME]
-			command=gost -L="ssh://:$PORT?ssh_authorized_keys=/root/auth-gost_keys"
-			autostart=true
-			autorestart=true
-			stderr_logfile=/var/log/gost/$FILENAME.err.log
-			stdout_logfile=/var/log/gost/$FILENAME.log
-			EOF
-			sleep 1
-			echo -e "${YELLOW}===========start gost===========${CLEAR}"
-			supervisorctl reread && supervisorctl update && supervisorctl start all
-			echo -e "${YELLOW}===========your config===========${CLEAR}"
-			cat /etc/supervisor/conf.d/$FILENAME.conf | grep command
-			echo -e "${GREEN}setup finish${CLEAR}"
+				while [ -z $PUBKEY ];do
+					echo -e "${RED}public key con not be empty${CLEAR}"
+					read -rep $'please enter pulic key: \n'   PUBKEY
+				done	
+				sleep 1
+
+				if [ ! -f  /root/auth-gost_keys  ];then
+							touch /root/auth-gost_keys
+					echo  -e "${GREEN}ssh authorized public keys file created${CLEAR}"
+				else
+					echo  -e "${GREEN}ssh authorized public keys file is enable${CLEAR}"
+				fi;
+			
+				echo $PUBKEY >>  /root/auth-gost_keys
+				cat <<-EOF >  /etc/supervisor/conf.d/$FILENAME.conf
+				[program:$FILENAME]
+				command=gost -L="ssh://:$PORT?ssh_authorized_keys=/root/auth-gost_keys"
+				autostart=true
+				autorestart=true
+				stderr_logfile=/var/log/gost/$FILENAME.err.log
+				stdout_logfile=/var/log/gost/$FILENAME.log
+				EOF
+				sleep 1
+				echo -e "${YELLOW}===========start gost===========${CLEAR}"
+				supervisorctl reread && supervisorctl update && supervisorctl start all
+				echo -e "${YELLOW}===========your config===========${CLEAR}"
+				SERVERIP=`dig @resolver4.opendns.com myip.opendns.com +short`
+				SERVERPORT=`cat /etc/supervisor/conf.d/$FILENAME.conf | grep -o -E '[0-9]+'`
+				echo -e ${GREEN}
+				echo "server ip addres: 		${SERVERIP}"
+				echo "server port:    			${SERVERPORT}"
+				echo -e "${GREEN}setup finish${CLEAR}"
+			elif [ "$TRANSPORTS" == shadowsocks ];then
+					cat <<-EOF > /etc/supervisor/conf.d/$FILENAME.conf
+					[program:$FILENAME]
+					command=gost -L=ss+ohttp://chacha20-ietf-poly1305:$PASS@:$PORT?~bypass=*.ir,*.ir/*,google.com,google.com/*,*.google.com,*.google.com/* 
+					autostart=true
+					autorestart=true
+					stderr_logfile=/var/log/gost/$FILENAME.err.log
+					stdout_logfile=/var/log/gost/$FILENAME.log
+					EOF
+					echo -e "${YELLOW}===========start gost===========${CLEAR}"
+					supervisorctl reread && supervisorctl update && supervisorctl start all
+					echo -e "${YELLOW}===========your config===========${CLEAR}"
+					#cat /etc/supervisor/conf.d/$FILENAME.conf
+					echo
+					PUBIP=`dig @resolver4.opendns.com myip.opendns.com +short`
+					echo 
+					QRC=`echo -n "chacha20-ietf-poly1305:${PASS}" | base64`
+					echo "ss://${QRC}@${PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp"
+					echo
+					echo "ss://${QRC}@${PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp" | qr
+					echo
+					echo -e "${GREEN}setup finish${CLEAR}"
+			else
+				echo "can not find valid transporter"
+			fi
+
 	else
 		echo "not found file name"
 	fi;
