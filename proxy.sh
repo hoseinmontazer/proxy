@@ -177,7 +177,7 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 
 					#cat /etc/supervisor/conf.d/$FILENAME.conf
 					echo
-					QRC=`echo -n 'chacha20-ietf-poly1305:${PASS}' | base64`
+					QRC=`echo -n 'chacha20-ietf-poly1305:'${PASS} | base64`
 					echo "ss://${QRC}@$PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp"
 					echo "ss://${QRC}@$PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp" | qr
 					echo
