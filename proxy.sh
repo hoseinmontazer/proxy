@@ -174,13 +174,16 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 					stderr_logfile=/var/log/gost/$FILENAME.err.log
 					stdout_logfile=/var/log/gost/$FILENAME.log
 					EOF
-
+					echo -e "${YELLOW}===========start gost===========${CLEAR}"
+					supervisorctl reread && supervisorctl update && supervisorctl start all
+					echo -e "${YELLOW}===========your config===========${CLEAR}"
 					#cat /etc/supervisor/conf.d/$FILENAME.conf
 					echo
 					PUBIP=`dig @resolver4.opendns.com myip.opendns.com +short`
-					echo $PUBIP
+					echo 
 					QRC=`echo -n "chacha20-ietf-poly1305:${PASS}" | base64`
 					echo "ss://${QRC}@${PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp"
+					echo
 					echo "ss://${QRC}@${PUBIP}:${PORT}?plugin=obfs-local%3Bobfs%3Dhttp" | qr
 					echo
 					echo -e "${GREEN}setup finish${CLEAR}"
