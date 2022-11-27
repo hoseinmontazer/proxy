@@ -177,7 +177,7 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 
 					cat /etc/supervisor/conf.d/$FILENAME.conf
 					echo
-					echo -n "ss://"`echo -n chacha20-ietf-poly1305:$PASS@$PUBIP:$PORT | base64` | qr
+					echo -n "ss://"`echo -n chacha20-ietf-poly1305:$PASS@$PUBIP:$PORT | iconv  -t utf-8 | base64` | qr
 					echo
 					echo -e "${GREEN}setup finish${CLEAR}"
 			else
