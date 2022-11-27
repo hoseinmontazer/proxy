@@ -160,7 +160,7 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 				supervisorctl reread && supervisorctl update && supervisorctl start all
 				echo -e "${YELLOW}===========your config===========${CLEAR}"
 				SERVERIP=`dig @resolver4.opendns.com myip.opendns.com +short`
-				SERVERPORT=`cat /etc/supervisor/conf.d/$FILENAME.log | grep -o -E '[0-9]+'`
+				SERVERPORT=`cat /etc/supervisor/conf.d/$FILENAME.conf | grep -o -E '[0-9]+'`
 				echo -e ${GREEN}
 				echo "server ip addres: 		${SERVERIP}"
 				echo "server port:    			${SERVERPORT}"
