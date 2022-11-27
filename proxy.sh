@@ -141,9 +141,9 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 
 				if [ ! -f  /root/auth-gost_keys  ];then
 							touch /root/auth-gost_keys
-					echo "${GREEN}ssh authorized public keys file created${CLEAR}"
+					echo  -e "${GREEN}ssh authorized public keys file created${CLEAR}"
 				else
-					echo "${GREEN}ssh authorized public keys file is enable${CLEAR}"
+					echo  -e "${GREEN}ssh authorized public keys file is enable${CLEAR}"
 				fi;
 			
 				echo $PUBKEY >>  /root/auth-gost_keys
@@ -159,7 +159,11 @@ if [[  $MSG == "Y" ]] || [[  $MSG == "y" ]] ;then
 				echo -e "${YELLOW}===========start gost===========${CLEAR}"
 				supervisorctl reread && supervisorctl update && supervisorctl start all
 				echo -e "${YELLOW}===========your config===========${CLEAR}"
-				cat /etc/supervisor/conf.d/$FILENAME.conf | grep command
+				SERVERIP = `PUBIP=dig @resolver4.opendns.com myip.opendns.com +short`
+				SERVERPORT = cat /var/log/gost/$FILENAME.log | grep -o -E '[0-9]+'
+				echo -e ${GREEN}
+				echo "server ip addres: 		${SERVERIP}"
+				echo "server port:    			${SERVERPORT}"
 				echo -e "${GREEN}setup finish${CLEAR}"
 			elif [ "$TRANSPORTS" == shadowsocks ];then
 				echo "hi shadow"
