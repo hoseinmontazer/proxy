@@ -627,7 +627,7 @@ if [ $MSG == 'y' ];then
                                 PUBIP=`dig @resolver4.opendns.com myip.opendns.com +short`
                         fi
                 fi
-	            VMESS=`python3 ./json2vmess.py /usr/local/etc/v2ray/$FILENAME.json.json`
+	            VMESS=`python3 ./json2vmess.py /usr/local/etc/v2ray/$FILENAME.json`
 				echo -e  ${GREEN}
                 echo $VMESS | awk -F'vmess' '{print "vmess"$2}'
 				echo -e ${CLEAR}
