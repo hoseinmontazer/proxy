@@ -6,7 +6,7 @@ in direct mode client connect to server directly without any forwarder
 
 
 ###  bridge
-in bridge mode client connect to forwarder in local area and bridge server forward traffic as a ssh tunne to freedon server
+in bridge mode client connect to forwarder in local area and bridge server forward traffic as a ssh tunnel to freedom server
 
 
 ```mermaid
